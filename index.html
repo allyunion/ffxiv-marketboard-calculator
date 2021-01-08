@@ -2,9 +2,17 @@
 <html lang="en">
   <head>
     <title>FFXIV Marketboard Tax Calculator</title>
+    <style>
+      td { vertical-align: baseline; }
+    </style>
   </head>
   <body class="text-center">
-<form onsubmit="return false" oninput="final_price.value = parseInt(target_price.value) / parseFloat(tax_percentage.value) / parseInt(items.value)">
+  <table width="100%">
+    <tbody>
+    <tr>
+      <td>
+  <h2>Market Price Calculator</h2>
+<form onsubmit="return false" oninput="final_price.value = Math.floor(parseInt(target_price.value) / parseFloat(tax_percentage.value) / parseInt(items.value))">
 
   <h3>Tax Percentage:</h3>
 <input checked="checked" name="tax_percentage" type="radio" value=".95" /> <label for="tax_percentage-0">5%</label> <input name="tax_percentage" type="radio" value=".96" /> <label for="tax_percentage-1">4%</label> <input name="tax_percentage" type="radio" value=".97" /> <label for="tax_percentage-2">3%</label> <input name="tax_percentage" type="radio" value=".98" /> <label for="tax_percentage-3">2%</label><input name="tax_percentage" type="radio" value=".99" /> <label for="tax_percentage-4">1%</label>
@@ -15,5 +23,52 @@
   <h3>Final Price:</h3>
   <output name="final_price"></output>
  </form>
+
+ </td>
+  <td>
+   <h2>Profit Margin Calculator</h2>
+
+<form onsubmit="return false" oninput="investment.value = Math.floor(parseInt(cost.value) * parseInt(items.value) * ((parseInt(buyer_tax.value) + 100) / 100)); break_even.value = Math.floor(parseInt(investment.value) / ((100 - parseInt(seller_tax.value)) / 100)); final_price.value = parseInt(break_even.value) + parseInt(desired_profit.value)">
+
+  <h3>Current Cost per Item:</h3>
+  <input name="cost" type="number" value="1" min="1" max="999999999">
+  <h3>Number of Items</h3>
+  <input name="items" type="number" value="1" min="1" max="99" step="1" title="Number of Items to be Sold">
+  <h3>Buyer's Tax Percentage:</h3>
+  <input name="buyer_tax" type="number" value="5" min="0" max="100" step="1" title="Buyer's Tax">
+  <h3>Seller's Tax Percentage:</h3>
+  <input name="seller_tax" type=number" value="3" min="0" max="100" step="1" title="Seller's Tax">
+  <h3>Desired Profit:</h3>
+  <input name="desired_profit" type="number" min="1" max="999999999">
+  <h3>Initial Investment Cost</h3>
+  <output name="investment"></output>
+  <h3>Break Even Cost:</h3>
+  <output name="break_even"></output>
+  <h3>Final Price:</h3>
+  <output name="final_price"></output>
+ </form>
+
+ </td>
+
+ <td>
+   <h2>Undercutting Calculator</h2>
+<form onsubmit="return false" oninput="price.value = Math.floor(parseInt(cost.value) * parseInt(items.value) * ((100 + parseInt(buyer_tax.value)) / 100) / ((100 - parseInt(seller_tax.value)) / 100))">
+
+  <h3>Current Cost per Item:</h3>
+  <input name="cost" type="number" value="1" min="1" max="999999999">
+  <h3>Number of Items</h3>
+  <input name="items" type="number" value="1" min="1" max="99" step="1" title="Number of Items to be Sold">
+  <h3>Buyer's Tax Percentage:</h3>
+  <input name="buyer_tax" type="number" value="5" min="0" max="100" step="1" title="Buyer's Tax">
+  <h3>Seller's Tax Percentage:</h3>
+  <input name="seller_tax" type=number" value="3" min="0" max="100" step="1" title="Seller's Tax">
+  <h3>Lowest Price Point <br/>(any lower than this would allow someone to buy<br/>and re-sell your item)</h3>
+  <output name="price"></output>
+ </form>
+
+ </td>
+ </tbody>
+ </table>
   </body>
 </html>
+
